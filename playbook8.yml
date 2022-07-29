@@ -1,0 +1,16 @@
+---
+- name: implementing host scope variables
+  hosts: appserver
+  vars:
+    - a: maven
+    - b: absent
+    - c: yes  
+     
+      
+  tasks:
+    - name: install 
+      apt:
+        name: "{{a}}"
+        state: "{{b}}"
+        update_cache: "{{c}}"
+...          

@@ -1,0 +1,10 @@
+---
+- name: installing packages
+  hosts: all
+  tasks:
+    - name: installing git maven tree
+      apt:
+        name: ["tree", "maven", "git"]
+        state: present
+        update_cache: yes    
+

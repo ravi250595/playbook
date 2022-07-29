@@ -1,0 +1,22 @@
+---
+- name: creating users
+  hosts: all
+  tasks:
+    - name: useradd
+      user:
+        name: "{{item.a}}"
+        password: "{{item.b}}"
+        home: "{{item.c}}"
+      with_items:
+        - {a: kavya,b: kavya,c: /tmp/kavya}
+        - {a: raju,b: raju,c: /home/raju}
+        - {a: hasini,b: hasini,c: /tmp/hasini}     
+    - name: copying files
+      copy:
+        src: "{{item.a}}"
+        dest: "{{item.b}}"
+      with_items:
+        - {a: /etc/passwd,b: /tmp/kavya}
+        - {a: /etc/group,b: /home/raju}    
+
+

@@ -1,0 +1,40 @@
+---
+- name: configuring tomcat9
+  hosts: all
+  tasks:
+    - name: install tomcat9 tomcat9-admin
+      apt:
+        name: "{{item.a}}"
+        state: "{{item.b}}"
+        update_cache: "{{item.c}}"
+      with_items:
+        - {a: tomcat9,b: present,c: yes}
+        - {a: tomcat9-admin,b: present,c: yes}
+
+    - name: editing tomcat-users.xml
+      copy:
+        src: /home/ubuntu/playbook/tomcat-users.xml
+        dest: /etc/tomcat9/tomcat-users.xml
+    - name: editing server.xml
+      replace:
+        regexp: 9090
+        replace: 8080
+        path: /etc/tomcat9/server.xml      
+    - name:
+      service:
+        name: tomcat9
+        state: restarted
+    - name: pause for 1 mins
+      pause: 
+        minutes: 1         
+    - name: check tomcat response on server1 server2
+      uri:
+        url: "{{item}}"
+        status_code: 200
+      with_items:
+        - http://172.31.29.249:8080
+        - http://172.31.31.248:8080
+        - http://172.31.12.236:8080
+        - http://172.31.10.17:8080
+  
+

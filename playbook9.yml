@@ -1,0 +1,9 @@
+---
+- name: installaing packages
+  hosts: server
+  tasks:
+    - name: install/uninstall git
+      apt:
+        name: "{{a}}"
+        state: "{{b}}"
+        update_cache: "{{c}}" 

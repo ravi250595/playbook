@@ -1,0 +1,9 @@
+---
+- name: installing packages
+  hosts: 172.31.29.249
+  tasks:
+    - name: 
+      apt:
+        name: "{{a}}"
+        state: "{{b}}"
+        update_cache: "{{c}}"

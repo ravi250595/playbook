@@ -1,0 +1,39 @@
+---
+- name: configuring tomcat9
+  hosts: all
+  tasks:
+    - name: install tomcat9
+      apt:
+        name: tomcat9
+        state: present
+        update_cache: yes
+    - name: install tomcat9-admin
+      apt:
+        name: tomcat9-admin
+        state: present
+        update_cache: yes       
+    - name: editing tomcat-users.xml
+      copy:
+        src: /home/ubuntu/playbook/tomcat-users.xml
+        dest: /etc/tomcat9/tomcat-users.xml
+    - name: editing server.xml
+      replace:
+        regexp: 8080
+        replace: 8888
+        path: /etc/tomcat9/server.xml      
+    - name:
+      service:
+        name: tomcat9
+        state: restarted
+    - name: pause for 3 mins
+      pause: 
+        minutes: 3         
+    - name: check tomcat response on server1 
+      uri:
+        url: http://172.31.29.249:8888
+        status_code: 200
+    - name: check tomcat response on server2
+      uri:
+        url: http://172.31.31.248:8888
+        status_code: 200      
+            

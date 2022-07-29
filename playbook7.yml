@@ -1,0 +1,13 @@
+---
+- name: configuration of softwares
+  hosts: all
+  vars:
+    - a: maven
+    - b: absent
+    - c: no
+  tasks:
+    - name: installing/uninstalling of maven
+      apt:
+        name: "{{a}}"
+        state: "{{b}}"
+        update_cache: "{{c}}"    

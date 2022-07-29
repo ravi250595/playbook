@@ -1,0 +1,13 @@
+---
+- name: installing packages
+  hosts: all
+  tasks:
+    - name: 
+      apt:
+        name: "{{item}}"
+        state: absent
+        update_cache: no
+      with_items:
+        - tree
+        - git
+        - maven  

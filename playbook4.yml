@@ -1,0 +1,10 @@
+---
+- name: installing softwares
+  hosts: all
+  tasks:
+    - name: installation
+      apt:
+        name: "{{a}}"
+        state: "{{b}}"
+        update_cache: "{{c}}"
+
