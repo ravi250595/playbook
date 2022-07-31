@@ -1,0 +1,50 @@
+---
+- name: installing required softwares
+  hosts: all
+  tasks:
+    - name:
+      apt: 
+        name: "{{item.a}}"
+        state: "{{item.b}}"
+        update_cache: "{{item.c}}"
+      with_items:
+        - {a: openjdk-8-jdk,b: present,c: yes}
+        - {a: git,b: present,c: no}
+        - {a: maven,b: present,c: no}
+        - {a: tomcat9,b: present,c: no}
+        - {a: tomcat9-admin,b: present,c: no}
+- name: continuous download and continuous build
+  hosts: jenkinserver
+  tasks:
+    - name: downloading 
+      git:
+        repo: https://github.com/ravi250595/mymaven.git
+        dest: dev-git
+    - name: create artifact war file
+      shell: cd dev-git;mvn package
+    - name: copying file from server to host
+      fetch:
+       src: dev-git/webapp/target/webapp.war
+       dest: /tmp
+- name: continuous deployment and continuous testing
+  hosts: qaserver
+  tasks:
+    - name: deploying artifact into tomcat on qaserver
+      copy:
+        src: /tmp/172.31.29.249/dev-git/webapp/target/webapp.war
+        dest: /var/lib/tomcat9/webapps/testapp.war  
+    - name: downloading selenium files
+      git:
+        repo: https://github.com/ravi250595/functionaltesting.git
+        dest: test-git
+    - name: executing the selenium scripts
+      shell: java -jar test-git/testing.jar
+- name: continuous delivery
+  hosts: prodserver
+  tasks: 
+    - name: deploying artifact into tomcat on prodserver
+      copy:
+        src: /tmp/172.31.29.249/dev-git/webapp/target/webapp.war  
+        dest: /var/lib/tomcat9/webapps/prodapp.war
+             
+
