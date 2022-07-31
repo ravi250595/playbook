@@ -16,6 +16,6 @@
              state: present
              update_cache: yes
       always:
-         - name: printig msg
+         - name: printing msg
            debug:
              msg: " there is a life in everysoul"        
