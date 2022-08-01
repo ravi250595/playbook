@@ -1,5 +1,20 @@
 ---
-a: maven
-b: latest
+a: tomcat9
+b: present
 c: yes
+d: tomcat9-admin
+e: no
+f: tomcat-users.xml
+g: /etc/tomcat9
+n: 8080
+o: 9090
+p: /etc/tomcat9/server.xml
+h: tomcat9
+i: restarted
+r: 1
+j: http://172.31.29.249:9090
+k: 200
+l: http://172.31.31.248:9090
+m: http://172.31.12.236:9090
+
 ...

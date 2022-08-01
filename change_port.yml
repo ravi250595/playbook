@@ -1,0 +1,6 @@
+---
+- name: changing port from 8080 to 9090
+  replace:
+    regexp: "{{n}}"
+    replace: "{{o}}"
+    path: "{{p}}"  

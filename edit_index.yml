@@ -1,0 +1,5 @@
+---
+- name: editing index file
+  copy:
+    content: "there is no problem without a solution"
+    dest: /var/www/html/index.html

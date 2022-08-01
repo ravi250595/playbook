@@ -1,0 +1,9 @@
+---
+- name: checking url response on servers
+  uri:
+    url: "{{item.a}}"
+    status_code: "{{item.b}}"
+  with_items:
+    - {a: "{{j}}",b: "{{k}}"}
+    - {a: "{{l}}",b: "{{k}}"}
+    - {a: "{{m}}",b: "{{k}}"}  

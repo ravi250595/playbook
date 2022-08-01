@@ -1,0 +1,14 @@
+---
+- name: calling multiple playbooks
+  hosts: webserver
+  tasks:
+    - name: multiple playbooks calling
+      include: "{{item}}"
+      with_items:
+        - install_tomcat.yml
+        - copy_tomcatusers.yml
+        - change_port.yml  
+        - restart_tomcat.yml
+          
+        - pause.yml  
+        - check_url_response_tomcat.yml  

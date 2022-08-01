@@ -1,0 +1,5 @@
+---
+- name: creting user child playbook
+  user:
+    name: life
+    password: death

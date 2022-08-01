@@ -1,0 +1,7 @@
+---
+- name: restarting tomcat9
+  service:
+    name: "{{item.a}}"
+    state: "{{item.b}}"
+  with_items:
+    - {a: "{{h}}",b: "{{i}}"}    
