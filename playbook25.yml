@@ -1,0 +1,18 @@
+---
+- name: check file f1 and if it doesnot have execute permissions give it
+  hosts: all
+  tasks:
+    - name: check for file f1
+      stat:
+        path: /tmp/f1
+      register: a
+    - name: display the output 
+      debug:
+        var: a
+    - name: giving permission to non executable files
+      file:
+        name: /tmp/f1
+        mode: 700
+      when: a.stat.executable == false      
+           
+       
