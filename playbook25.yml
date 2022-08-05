@@ -9,10 +9,13 @@
     - name: display the output 
       debug:
         var: a
-    - name: giving permission to non executable files
+    - name: create file f1
+      file:
+        name: /tmp/f1
+        state: touch
+      when: a.stat.exists == false    
+    - name: give permission to execute
       file:
         name: /tmp/f1
         mode: 700
-      when: a.stat.executable == false      
-           
-       
+      when: a.stat.executable == false    

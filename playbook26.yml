@@ -1,0 +1,15 @@
+---
+- name: change password of an existing user
+  hosts: all
+  tasks:
+    - name: check for user
+      shell: grep devil  /etc/passwd
+      register: a
+    - name: display output of the user
+      debug:
+        var: a     
+    - name: change password for devil
+      user:
+        name: devil
+        password: devil
+      when: a.changed == true    
